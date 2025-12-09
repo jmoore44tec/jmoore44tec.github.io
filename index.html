@@ -1,132 +1,440 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Jesse Moore- Capstone Project</title>
+    <title>Jesse Moore - Capstone Project</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Color Palette */
+        :root {
+            --primary-color: #2C3E50;    /* Navy Blue */
+            --secondary-color: #3498DB;   /* Sky Blue */
+            --accent-color: #E74C3C;      /* Red */
+            --light-color: #ECF0F1;       /* Light Gray */
+            --dark-color: #2C3E50;        /* Dark Navy */
+            --text-color: #333333;
+            --card-bg: #FFFFFF;
+            --gradient-start: #3498DB;
+            --gradient-end: #2C3E50;
+        }
+        
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-color);
+            color: var(--text-color);
             line-height: 1.6;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .artifact {
-            border: 1px solid #ddd;
             padding: 20px;
-            margin: 20px 0;
-            border-radius: 5px;
         }
-        .video-container {
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            padding: 50px 30px;
             text-align: center;
-            margin: 40px 0;
         }
-        video {
-            max-width: 100%;
-            height: auto;
+        
+        .header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* Content Sections */
+        .content-section {
+            padding: 30px;
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            border-left: 4px solid var(--accent-color);
+            padding-left: 15px;
+            margin: 30px 0 20px 0;
+            font-size: 1.6rem;
+        }
+        
+        .section-title i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+        
+        /* Read More Section */
+        .read-more-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .collapsible-text {
+            position: relative;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        
+        .collapsible-text.collapsed {
+            max-height: 250px;
+        }
+        
+        .fade-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(to bottom, transparent, white 90%);
+            display: none;
+        }
+        
+        .collapsible-text.collapsed .fade-overlay {
+            display: block;
+        }
+        
+        .read-more-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .read-more-btn:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+        
+        /* Artifacts */
+        .artifact {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 4px solid var(--secondary-color);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .artifact:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+        }
+        
+        .artifact h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .artifact p {
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+        
+        .repository {
+            background-color: #F8F9FA;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        
+        .repository h5 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .repository a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .repository a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        
+        /* Course Objectives */
+        .course-objectives {
+            background-color: #E8F4FC;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            border-left: 3px solid var(--secondary-color);
+        }
+        
+        .course-objectives h6 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        
+        .course-objectives p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        /* Video Section */
+        .video-section {
+            text-align: center;
+            padding: 30px;
+            background-color: #F8F9FA;
+            margin-top: 30px;
+        }
+        
+        .video-container {
+            max-width: 800px;
+            margin: 20px auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .video-container iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            margin-top: 30px;
+        }
+        
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            margin: 10px 0;
+            font-weight: 600;
+        }
+        
+        .github-link:hover {
+            color: var(--light-color);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .header h2 {
+                font-size: 1.4rem;
+            }
+            
+            .content-section {
+                padding: 20px;
+            }
+            
+            .video-container iframe {
+                height: 300px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Jesse Moore</h1>
-        <h2>Computer Science Capstone Project</h2>
-        <p>CS 499 Computer Science Capstone 2025</p>
-    </div>
-    
-    <div class="project-description">
-        <h3>Project Overview</h3>
-        <p>Here I will present three artifacts, three projects I have worked on in my final year at Southern New Hampshire University.
-        One project is from a course final, the other two I worked on in my spare time in order to prep for an interview. An infomal code review is also included.</p>
-    </div>
-
-    <div class="professional-self-assess">
-        <h3>Professional Self Assessment</h3>
-        
-        <p>Firstly, thank you so much for taking the time to view and examine my ePortfolio. This project will provide a look at my work as well as how I operate
-         and how I think as an engineer. Starting my journey as a Computer Science student I had little to no experience programming. What I had completed
-         could not be considered professional in any aspect up until that point. </p>
-        
-        <p>Within this ePortfolio are three artifacts, each separate projects I have worked on during my senior year at SNHU. 
-        I am using three separate projects as I feel they demonstrate very specific skills each on their own. </p>
-        
-        <p>My first artifact is my Computer Graphics and Visualization Final Project, where I demonstrate my skills in 3D modeling, C++ programming, as well as my ability to think as an engineer collaborating 
-            in a team environment as well as with stakeholders if necessary. </p>
-
-        <p>My second artifact is a Collaborative Editor, a very much simplified version of Google Docs. With this project my skills and
-         know-how are on full display on the topic of data structures and algorithms, C# programming, and here specifically, my knowledge and skill utilizing Web Sockets. </p>
-
-        <p>My final artifact is a Notes application. This project was also made using C# while also utilizing MSSQL. Because of it's nature and quality, I decided this project would
-         be a great addition to my ePortfolio because of its demonstration of my knowledge and skill with programming in C# as well as setting up and properly manipulating databases. </p>
-
-        <p>Through all of these projects, and especially with their enhancements made in my final term at SNHU, I made sure to look at my own past projects empirically and with a security mindset. 
-        I made sure to properly examine and test my code so that security flaws and vulnerabilities were properly tested and weeded out.</p>
-
-        <p>Though it is not present within this ePortfolio for contractual reasons, I am currently working as a Full Stack Software Engineer on a Patient Information Management System as well as a smaller feature, an Audio-to-Text Transcribing application. 
-        My time at both Sierra College and Southern New Hampshire University has prepared me to tackle this project professionally. 
-        While this project is ongoing I have made sure to communicate properly with my employer as well as document my work thoroughly through
-         in-code comments as well as by using project management software (Trello and Balsamiq) and creating easy to read and understand documentations 
-        in the form of Software Design documents. </p>
-    
-    <div class="artifacts">
-        <h3>Project Artifacts</h3>
-        
-        <div class="artifact">
-            <h4>Artifact 1: Computer Graphics and Visualization Final Project</h4>
-            <p>A 3D rendered scene based on a 2D image using C++ and OpenGL</p>
-            <div class="repository">
-              <h3>Repository</h3>
-              <p>View the complete source code: <a href="https://github.com/jmoore44tec/Computer-Graphics-and-Visualization-Final">GitHub Repo</a></p>
-                <p>I genuinely found this course to be really stimulating and useful, but more so for my side projects. I don’t plan on becoming a game developer within the gaming industry, but I do plan on and am already working on developing video games as a hobby. Utilizing OpenGL is a great way to provide detailed graphics for my hobby’s needs. </p>
-                <p>Attention to detail and dedication to providing a quality product is demonstrated by the enhancements I made this this artifact.
-                    This  makes me a much more viable candidate due to my dedication to quality code and presentation. Structuring the product better also improved the quality overall.
-                Enhancements made include proper error handling implementation in the case of objects not properly rendering, as well as an improved structure of code for better readability and understanding wihtin a collaborative environment.</p> 
-                <h1>Course Objectives Artifact Aligns With:</h1>
-                <p>-Employ strategies for building collaborative environments that enable diverse audiences to support organizational decision-making in the field of computer science.
-- Design, develop, and deliver professional-quality oral, written, and visual communications that are coherent, technically sound, and appropriately adapted to specific audiences and contexts.
-- Demonstrate an ability to use well-founded and innovative techniques, skills, and tools in computing practices for the purpose of implementing computer solutions that deliver value and accomplish industry-specific goals.
-</p>
-          </div>
+    <div class="container">
+        <div class="header">
+            <h1>Jesse Moore</h1>
+            <h2>Computer Science Capstone Project</h2>
+            <p>CS 499 Computer Science Capstone 2025</p>
         </div>
         
-        <div class="artifact">
-            <h4>Artifact 2: Collaborative Editor</h4>
-            <p>A collaborative editor web application in C#</p>
-            <div class="repository">
-              <h3>Repository</h3>
-              <p>View the complete source code: <a href="https://github.com/jmoore44tec/Collab-Editor">GitHub Repo</a></p>
+        <div class="content-section">
+            <h3 class="section-title"><i class="fas fa-bullseye"></i> Project Overview</h3>
+            <p>Here I will present three artifacts, three projects I have worked on in my final year at Southern New Hampshire University. One project is from a course final, the other two I worked on in my spare time in order to prep for an interview. An informal code review is also included.</p>
+        </div>
+        
+        <div class="content-section">
+            <h3 class="section-title"><i class="fas fa-user-graduate"></i> Professional Self Assessment</h3>
+            
+            <div class="read-more-container">
+                <div class="collapsible-text collapsed" id="self-assessment-text">
+                    <div class="fade-overlay"></div>
+                    
+                    <p>Firstly, thank you so much for taking the time to view and examine my ePortfolio. This project will provide a look at my work as well as how I operate and how I think as an engineer. Starting my journey as a Computer Science student I had little to no experience programming. What I had completed could not be considered professional in any aspect up until that point.</p>
+                    
+                    <p>Within this ePortfolio are three artifacts, each separate projects I have worked on during my senior year at SNHU. I am using three separate projects as I feel they demonstrate very specific skills each on their own.</p>
+                    
+                    <p>My first artifact is my Computer Graphics and Visualization Final Project, where I demonstrate my skills in 3D modeling, C++ programming, as well as my ability to think as an engineer collaborating in a team environment as well as with stakeholders if necessary.</p>
+                    
+                    <p>My second artifact is a Collaborative Editor, a very much simplified version of Google Docs. With this project my skills and know-how are on full display on the topic of data structures and algorithms, C# programming, and here specifically, my knowledge and skill utilizing Web Sockets.</p>
+                    
+                    <p>My final artifact is a Notes application. This project was also made using C# while also utilizing MSSQL. Because of its nature and quality, I decided this project would be a great addition to my ePortfolio because of its demonstration of my knowledge and skill with programming in C# as well as setting up and properly manipulating databases.</p>
+                    
+                    <p>Through all of these projects, and especially with their enhancements made in my final term at SNHU, I made sure to look at my own past projects empirically and with a security mindset. I made sure to properly examine and test my code so that security flaws and vulnerabilities were properly tested and weeded out.</p>
+                    
+                    <p>Though it is not present within this ePortfolio for contractual reasons, I am currently working as a Full Stack Software Engineer on a Patient Information Management System as well as a smaller feature, an Audio-to-Text Transcribing application. My time at both Sierra College and Southern New Hampshire University has prepared me to tackle this project professionally. While this project is ongoing I have made sure to communicate properly with my employer as well as document my work thoroughly through in-code comments as well as by using project management software (Trello and Balsamiq) and creating easy to read and understand documentations in the form of Software Design documents.</p>
+                </div>
+                
+                <button class="read-more-btn" id="read-more-toggle">
+                    <i class="fas fa-chevron-down"></i>
+                    <span>Read More</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h3 class="section-title"><i class="fas fa-code-branch"></i> Project Artifacts</h3>
+            
+            <div class="artifact">
+                <h4>Artifact 1: Computer Graphics and Visualization Final Project</h4>
+                <p>A 3D rendered scene based on a 2D image using C++ and OpenGL</p>
+                
+                <div class="repository">
+                    <h5>Repository</h5>
+                    <p>View the complete source code: <a href="https://github.com/jmoore44tec/Computer-Graphics-and-Visualization-Final" target="_blank">GitHub Repo</a></p>
+                </div>
+                
+                <p>I genuinely found this course to be really stimulating and useful, but more so for my side projects. I don't plan on becoming a game developer within the gaming industry, but I do plan on and am already working on developing video games as a hobby. Utilizing OpenGL is a great way to provide detailed graphics for my hobby's needs.</p>
+                
+                <p>Attention to detail and dedication to providing a quality product is demonstrated by the enhancements I made to this artifact. This makes me a much more viable candidate due to my dedication to quality code and presentation. Structuring the product better also improved the quality overall. Enhancements made include proper error handling implementation in the case of objects not properly rendering, as well as an improved structure of code for better readability and understanding within a collaborative environment.</p>
+                
+                <div class="course-objectives">
+                    <h6>Course Objectives Artifact Aligns With:</h6>
+                    <p>- Employ strategies for building collaborative environments that enable diverse audiences to support organizational decision-making in the field of computer science.</p>
+                    <p>- Design, develop, and deliver professional-quality oral, written, and visual communications that are coherent, technically sound, and appropriately adapted to specific audiences and contexts.</p>
+                    <p>- Demonstrate an ability to use well-founded and innovative techniques, skills, and tools in computing practices for the purpose of implementing computer solutions that deliver value and accomplish industry-specific goals.</p>
+                </div>
+            </div>
+            
+            <div class="artifact">
+                <h4>Artifact 2: Collaborative Editor</h4>
+                <p>A collaborative editor web application in C#</p>
+                
+                <div class="repository">
+                    <h5>Repository</h5>
+                    <p>View the complete source code: <a href="https://github.com/jmoore44tec/Collab-Editor" target="_blank">GitHub Repo</a></p>
+                </div>
+                
                 <p>This artifact demonstrates my skills in manipulating algorithms and data structures. By enhancing the way the Web Socket operated within the application I was able to improve performance by ensuring changes made were the only things changed, as before the application would reload the entire file after changes were made. This application through my enhancements in my final term at SNHU has become more scalable and memory efficient!</p>
-                <h1>Course Objectives Artifact Aligns With:</h1>
-                <p>- Design and evaluate computing solutions that solve a given problem using algorithmic principles and computer science practices and standards appropriate to its solution while managing the trade-offs involved in design choices.
-- Demonstrate an ability to use well-founded and innovative techniques, skills, and tools in computing practices for the purpose of implementing computer solutions that deliver value and accomplish industry-specific goals.
-- Develop a security mindset that anticipates adversarial exploits in software architecture and designs to expose potential vulnerabilities, mitigate design flaws, and ensure privacy and enhanced security of data and resources.  
-</p>
-          </div>
+                
+                <div class="course-objectives">
+                    <h6>Course Objectives Artifact Aligns With:</h6>
+                    <p>- Design and evaluate computing solutions that solve a given problem using algorithmic principles and computer science practices and standards appropriate to its solution while managing the trade-offs involved in design choices.</p>
+                    <p>- Demonstrate an ability to use well-founded and innovative techniques, skills, and tools in computing practices for the purpose of implementing computer solutions that deliver value and accomplish industry-specific goals.</p>
+                    <p>- Develop a security mindset that anticipates adversarial exploits in software architecture and designs to expose potential vulnerabilities, mitigate design flaws, and ensure privacy and enhanced security of data and resources.</p>
+                </div>
+            </div>
+            
+            <div class="artifact">
+                <h4>Artifact 3: Notes Application</h4>
+                <p>A note taking application in C#</p>
+                
+                <div class="repository">
+                    <h5>Repository</h5>
+                    <p>View the complete source code: <a href="https://github.com/jmoore44tec/NotesApp" target="_blank">GitHub Repo</a></p>
+                </div>
+                
+                <p>This artifact effectively demonstrates my understanding and skill in developing and manipulating databases (here specifically using MSSQL). Enhancements include adding error handling as well as input validation and data sanitization. This was a crucial update to a solid application as prior to the enhancements made there were some pretty obvious vulnerabilities in both data integrity and input validation and sanitization. These enhancements made the application much more secure as well as resilient.</p>
+                
+                <div class="course-objectives">
+                    <h6>Course Objectives Artifact Aligns With:</h6>
+                    <p>- Design and evaluate computing solutions that solve a given problem using algorithmic principles and computer science practices and standards appropriate to its solution while managing the trade-offs involved in design choices.</p>
+                    <p>- Demonstrate an ability to use well-founded and innovative techniques, skills, and tools in computing practices for the purpose of implementing computer solutions that deliver value and accomplish industry-specific goals.</p>
+                </div>
+            </div>
         </div>
         
-        <div class="artifact">
-            <h4>Artifact 3: Notes Application</h4>
-            <p>A note taking application in C#</p>
-            <div class="repository">
-              <h3>Repository</h3>
-              <p>View the complete source code: <a href="https://github.com/jmoore44tec/NotesApp">GitHub Repo</a></p>
-                <p>This artifact effectively demonstrates my understanding and skill in developing and manupulating databases (here specifically using MSSQL). Enhancements include adding error handling as well as input validation and data sanitization. This was a crucial update to a solid application as prior to the enhancements made there were some pretty obvious vulnerabilites in both data integrity and input validation and sanitization. These enhancements made the application much more secure as well as resiliant.</p>
-                <h1>Course Objectives Artifact Aligns With:</h1>
-                <p>- Design and evaluate computing solutions that solve a given problem using algorithmic principles and computer science practices and standards appropriate to its solution while managing the trade-offs involved in design choices.
-- Demonstrate an ability to use well-founded and innovative techniques, skills, and tools in computing practices for the purpose of implementing computer solutions that deliver value and accomplish industry-specific goals.
-</p>
-          </div>
+        <div class="video-section">
+            <h3 class="section-title"><i class="fas fa-video"></i> Code Review Video</h3>
+            <p>Watch my recorded code review presentation below:</p>
+            
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/h6GuGbtgYbE?si=6RtsxblP4DcS95Eo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© Jesse Moore 2025 | Computer Science Capstone Project</p>
+            <a href="https://github.com/jmoore44tec" class="github-link" target="_blank">
+                <i class="fab fa-github"></i> Visit My GitHub Profile
+            </a>
         </div>
     </div>
-    
-    <div class="CodeReview">
-        <h3>Code Review Video</h3>
-             <iframe width="560" height="315" src="https://www.youtube.com/embed/h6GuGbtgYbE?si=6RtsxblP4DcS95Eo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    </div>
-    
+
+    <script>
+        // Read More/Read Less functionality
+        const readMoreToggle = document.getElementById('read-more-toggle');
+        const selfAssessmentText = document.getElementById('self-assessment-text');
+        const readMoreIcon = readMoreToggle.querySelector('i');
+        const readMoreText = readMoreToggle.querySelector('span');
+        
+        readMoreToggle.addEventListener('click', function() {
+            if (selfAssessmentText.classList.contains('collapsed')) {
+                // Expand the text
+                selfAssessmentText.classList.remove('collapsed');
+                readMoreIcon.className = 'fas fa-chevron-up';
+                readMoreText.textContent = 'Read Less';
+            } else {
+                // Collapse the text
+                selfAssessmentText.classList.add('collapsed');
+                readMoreIcon.className = 'fas fa-chevron-down';
+                readMoreText.textContent = 'Read More';
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
